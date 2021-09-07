@@ -6,11 +6,23 @@ function subMenu() {
     const hideMEnu = document.querySelector('.hideMenu')
     hideMEnu.classList.toggle('showMenu')
 }
-
+//KNOCK CODE
 const boxDiv = document.querySelectorAll('.box')
+const nob = boxDiv.length; // number of boxes
+var pass = []; // array for passcode
+
+var tapcheck = [1, 1, 4, 2, 3, 3]
 
 boxDiv.forEach((box, idx) => {
     box.addEventListener('click', function(e) {
+        if (pass.length == nob + 2) pass = []; // restart after 4 inputs
+        pass.push(e.target.dataset.val);
+
+
+        var tgt = pass
+        if (pass.length == nob + 2 && tapcheck.toString() == tgt.toString()) { alert('Correct Password') }
+
+        console.log(tgt.toString().valueOf())
         const y = e.clientY
         const x = e.clientX
 
@@ -19,13 +31,6 @@ boxDiv.forEach((box, idx) => {
 
         const Xinside = x - btnLeft
         var Yinside = y - btnTop
-
-        if (y > btnTop) {
-            Yinside = y - btnTop
-        } else {
-            Yinside = (btnTop - y) / 4
-        }
-
         const circle = document.createElement('span')
         circle.classList.add('circles')
 
@@ -38,12 +43,9 @@ boxDiv.forEach((box, idx) => {
 
         setTimeout(() => circle.remove(), 1000)
 
-        activeBox = idx
-
-        console.log(activeBox)
-
     })
 })
+
 
 function rippleBTN(e) {
 
